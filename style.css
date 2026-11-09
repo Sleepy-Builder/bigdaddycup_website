@@ -1,0 +1,336 @@
+/* ==========================================================================
+   BIG DADDY'S CUP - OFFICIAL BRAND STYLESHEET (LIGHT THEME FIRST)
+   Brand Palette:
+     - Cheese Gold / Cheddar: #F59E0B / #FBBF24 / #D97706
+     - Sizzle Flame Red:      #DC2626 / #EF4444 / #991B1B
+     - Warm Buttermilk Base:  #FDFBF7 / #FFFDF9 / #FFFBEB
+     - Crisp Surface White:   #FFFFFF
+     - High Contrast Text:    #0F172A / #1E293B / #334155
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Bebas+Neue&display=swap');
+
+:root {
+  --bdc-yellow: #F59E0B;
+  --bdc-yellow-light: #FEF3C7;
+  --bdc-yellow-glow: #FBBF24;
+  --bdc-yellow-dark: #D97706;
+  --bdc-cream: #FFFDF7;
+  --bdc-cream-soft: #FEF9E7;
+  --bdc-red: #DC2626;
+  --bdc-red-dark: #991B1B;
+  --bdc-red-light: #FEE2E2;
+  --bdc-light-bg: #FDFBF7;
+  --bdc-card-bg: #FFFFFF;
+  --bdc-card-border: #F3E8D0;
+  --bdc-text: #0F172A;
+  --bdc-text-muted: #64748B;
+  --bdc-font-display: 'Cabinet Grotesk', 'Bebas Neue', sans-serif;
+  --bdc-font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Global Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--bdc-font-sans);
+  background-color: var(--bdc-light-bg);
+  color: var(--bdc-text);
+  overflow-x: hidden;
+}
+
+body {
+  background: linear-gradient(180deg, #FFFDF9 0%, #FDF8EE 40%, #FFFDF9 100%);
+  min-height: 100vh;
+  line-height: 1.5;
+  color: var(--bdc-text);
+}
+
+/* Typography Helpers - Relaxed & Spacious Spacing */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--bdc-font-sans);
+  background-color: var(--bdc-light-bg);
+  color: var(--bdc-text);
+  overflow-x: hidden;
+  letter-spacing: 0.015em;
+}
+
+body {
+  background: linear-gradient(180deg, #FFFDF9 0%, #FDF8EE 40%, #FFFDF9 100%);
+  min-height: 100vh;
+  line-height: 1.7;
+  color: var(--bdc-text);
+  letter-spacing: 0.015em;
+  word-spacing: 0.04em;
+}
+
+.font-display {
+  font-family: var(--bdc-font-display);
+  letter-spacing: 0.025em;
+  word-spacing: 0.05em;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.08em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+p {
+  letter-spacing: 0.015em;
+  line-height: 1.7;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FEF3C7;
+}
+::-webkit-scrollbar-thumb {
+  background: #F59E0B;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D97706;
+}
+
+/* Brand Gradient Text (Optimized for light background) */
+.text-gradient-cheese {
+  background: linear-gradient(135deg, #B45309 0%, #D97706 40%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-fire {
+  background: linear-gradient(135deg, #DC2626 0%, #EA580C 50%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glow & Card Shadows */
+.shadow-cheese {
+  box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.35);
+}
+.shadow-cheese-lg {
+  box-shadow: 0 20px 35px -8px rgba(245, 158, 11, 0.45);
+}
+.shadow-clean {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+}
+.shadow-clean-lg {
+  box-shadow: 0 12px 30px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.animate-glow {
+  animation: pulseGlow 2.5s infinite;
+}
+
+/* Buttons */
+.btn-cheese {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 60%, #D97706 100%);
+  color: #0F172A;
+  font-weight: 800;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(254, 240, 138, 0.6);
+}
+.btn-cheese:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.45);
+  background: linear-gradient(135deg, #FDE68A 0%, #FBBF24 60%, #F59E0B 100%);
+}
+.btn-cheese:active {
+  transform: translateY(1px);
+}
+
+.btn-red {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 60%, #B91C1C 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-red:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -4px rgba(220, 38, 38, 0.4);
+}
+
+.btn-outline-cheese {
+  border: 2px solid #F59E0B;
+  color: #B45309;
+  background: #FEF3C7;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.btn-outline-cheese:hover {
+  background: #F59E0B;
+  color: #0F172A;
+  box-shadow: 0 8px 20px -3px rgba(245, 158, 11, 0.35);
+}
+
+/* Food Cards (Light, Clean, Appetizing) */
+.food-card {
+  background: #FFFFFF;
+  border: 1px solid #F1E5D1;
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(180, 83, 9, 0.05);
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+  border-color: #FBBF24;
+  box-shadow: 0 16px 32px -8px rgba(217, 119, 6, 0.18), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.food-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F59E0B, #DC2626, #F59E0B);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.food-card:hover::before {
+  opacity: 1;
+}
+
+/* View Switcher Pills */
+.view-switch-btn {
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.view-switch-btn.active {
+  background: #F59E0B;
+  color: #0F172A;
+  box-shadow: 0 4px 12px -2px rgba(245, 158, 11, 0.4);
+  font-weight: 800;
+}
+
+.view-switch-btn:not(.active) {
+  color: #64748B;
+}
+.view-switch-btn:not(.active):hover {
+  color: #0F172A;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+/* Range Slider */
+input[type=range].cheese-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  background: #FED7AA;
+  height: 10px;
+  border-radius: 5px;
+  outline: none;
+}
+input[type=range].cheese-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #F59E0B;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.6);
+  border: 3px solid #FFFFFF;
+  transition: transform 0.15s ease;
+}
+input[type=range].cheese-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Live Order Tracker Steps (Light Theme) */
+.tracker-step.completed .tracker-icon {
+  background: #F59E0B;
+  color: #0F172A;
+  border-color: #D97706;
+}
+
+.tracker-step.completed .tracker-line {
+  background: #F59E0B;
+}
+
+.tracker-step.active .tracker-icon {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #EF4444;
+  animation: pulseGlow 1.8s infinite;
+}
+
+/* Toast Container */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  background: #FFFFFF;
+  border: 1px solid #F59E0B;
+  color: #0F172A;
+  padding: 12px 20px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(217, 119, 6, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

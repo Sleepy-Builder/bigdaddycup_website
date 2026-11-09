@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Big Daddy's Cup (BDC) | The Ultimate Cheesy Silog & Comfort Food Cups</title>
+  <meta name="description" content="Philippines' favorite viral comfort food! Bacsilog, Tapsilog, and sizzling rice bowls drowned in our signature velvety cheese sauce.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#F59E0B',
+              'yellow-light': '#FEF3C7',
+              'yellow-dark': '#D97706',
+              red: '#DC2626',
+              'red-dark': '#991B1B'
+            }
+          },
+          fontFamily: {
+            display: ['Cabinet Grotesk', 'Bebas Neue', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FFFDF9] text-slate-800 min-h-screen flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- ==================== ANNOUNCEMENT BAR ==================== -->
+  <aside aria-label="Announcement" class="bg-gradient-to-r from-amber-500 via-amber-400 to-red-500 text-slate-950 text-xs font-black py-2 px-4 text-center tracking-wide flex items-center justify-center gap-3 shadow-sm z-50">
+    <span class="inline-block animate-bounce">🧀</span>
+    <span>WELCOME TO BIG DADDY'S CUP • HOME OF THE ORIGINAL CHEESY SILOG • 40+ BRANCHES NATIONWIDE</span>
+  </aside>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/70 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- BRAND LOGO -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 p-0.5 shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center overflow-hidden">
+            <svg class="w-7 h-7 text-amber-500" viewBox="0 0 48 48" fill="none">
+              <path d="M10 14L14 42C14.2 43.1 15.1 44 16.2 44H31.8C32.9 44 33.8 43.1 34 42L38 14H10Z" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2.5"/>
+              <rect x="7" y="10" width="34" height="5" rx="2.5" fill="#F59E0B"/>
+              <path d="M18 4C18 7 16 7 16 9" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+              <path d="M24 2C24 6 22 6 22 9" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+              <path d="M30 4C30 7 28 7 28 9" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+              <path d="M17 26C19 23 22 24 24 26C26 24 29 23 31 26C31 28 27 30 24 28C21 30 17 28 17 26Z" fill="#1E293B"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <span class="font-display text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-1.5">
+            BIG DADDY'S <span class="text-amber-500">CUP</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-amber-700 font-bold block -mt-0.5">
+            Home of the Cheesy Silog • Est. PH
+          </span>
+        </div>
+      </a>
+
+      <!-- NAV LINKS -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-bold text-slate-600 tracking-wide">
+        <a href="#story" class="hover:text-amber-600 transition-colors">Our Secret Sauce</a>
+        <a href="#menu" class="hover:text-amber-600 transition-colors">Signature Menu</a>
+        <a href="#reviews" class="hover:text-amber-600 transition-colors">Foodie Love</a>
+        <a href="#branches" class="hover:text-amber-600 transition-colors">Branches</a>
+      </nav>
+
+      <!-- RIGHT ACTIONS -->
+      <div class="flex items-center gap-3">
+        <!-- LOGIN / AUTH BUTTON -->
+        <div id="nav-auth-container" class="flex items-center">
+          <button 
+            id="nav-login-btn"
+            onclick="openLoginModal()" 
+            class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all border border-amber-400"
+          >
+            <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+            </svg>
+            <span>Login</span>
+          </button>
+
+          <!-- Logged In State: Direct Link to user.html -->
+          <div id="nav-user-pill" class="hidden items-center gap-1.5">
+            <a 
+              href="user.html" 
+              class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-100/90 border border-amber-300 text-xs font-bold text-slate-900 hover:bg-amber-200 transition-colors shadow-sm"
+            >
+              <span class="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-black text-[10px]">👤</span>
+              <span id="nav-user-name" class="font-bold">Customer</span>
+            </a>
+            <button 
+              onclick="logoutUser()" 
+              class="w-7 h-7 rounded-lg bg-amber-50 hover:bg-red-50 text-slate-400 hover:text-red-600 flex items-center justify-center text-xs font-bold border border-amber-200"
+              title="Sign Out"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN LANDING PAGE CONTENT ==================== -->
+  <main class="flex-grow">
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:py-24 overflow-hidden bg-gradient-to-b from-amber-50/80 via-[#FFFDF9] to-[#FFFDF9]">
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-amber-200/40 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+      <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-red-100/50 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- LEFT HERO COPY -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+              <span>The Philippines' Cheesy Silog Sensation</span>
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.18] tracking-normal">
+              DROWNED IN OUR <br>
+              <span class="text-gradient-cheese">SIGNATURE CHEESE</span> <br>
+              <span class="text-gradient-fire">SAUCE.</span>
+            </h1>
+
+            <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed tracking-wide">
+              Crispy honey-cured bacon, prime tender beef tapa, and sizzling Kapampangan sisig paired with golden garlic sinangag rice, runny egg, and flooded with Big Daddy's viral velvety cheddar sauce.
+            </p>
+
+            <!-- CALL TO ACTION BUTTONS -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a 
+                href="#menu" 
+                class="px-8 py-4 rounded-2xl btn-cheese text-sm sm:text-base font-black uppercase tracking-wider flex items-center gap-2 shadow-cheese hover:scale-105 transition-transform"
+              >
+                <span>Explore Menu (₱99+)</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </a>
+
+              <a 
+                href="#branches" 
+                class="px-7 py-4 rounded-2xl bg-white hover:bg-amber-50 text-slate-700 hover:text-slate-950 border-2 border-amber-300 text-sm font-bold flex items-center gap-2 transition-all shadow-sm"
+              >
+                <span>📍 Find Nearest Branch</span>
+              </a>
+            </div>
+
+            <!-- TRUST METRICS -->
+            <div class="pt-6 border-t border-amber-200/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center lg:text-left">
+              <div class="bg-white/80 p-3 rounded-2xl border border-amber-100 shadow-sm">
+                <span class="block font-display text-2xl sm:text-3xl font-black text-amber-600">1.8M+</span>
+                <span class="text-xs text-slate-500 font-semibold">Cups Served</span>
+              </div>
+              <div class="bg-white/80 p-3 rounded-2xl border border-amber-100 shadow-sm">
+                <span class="block font-display text-2xl sm:text-3xl font-black text-amber-600">40+</span>
+                <span class="text-xs text-slate-500 font-semibold">Branches in PH</span>
+              </div>
+              <div class="bg-white/80 p-3 rounded-2xl border border-amber-100 shadow-sm">
+                <span class="block font-display text-2xl sm:text-3xl font-black text-amber-600">4.9 ★</span>
+                <span class="text-xs text-slate-500 font-semibold">Foodie Rating</span>
+              </div>
+              <div class="bg-white/80 p-3 rounded-2xl border border-red-100 shadow-sm">
+                <span class="block font-display text-2xl sm:text-3xl font-black text-red-600">100%</span>
+                <span class="text-xs text-slate-500 font-semibold">Real Cheddar Blend</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT HERO FOOD VISUAL -->
+          <div class="lg:col-span-5 relative flex items-center justify-center">
+            <div class="relative w-full max-w-md mx-auto">
+              
+              <div class="absolute -inset-3 bg-gradient-to-r from-amber-400 to-red-400 rounded-[2.5rem] blur-2xl opacity-25"></div>
+
+              <div class="relative bg-white border-2 border-amber-300 rounded-[2.2rem] p-6 shadow-2xl overflow-hidden animate-float">
+                
+                <div class="absolute top-4 left-4 z-20 bg-red-600 text-white text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                  <span>Viral Bacsilog</span>
+                </div>
+
+                <div class="absolute top-4 right-4 z-20 bg-amber-50 text-amber-900 text-xs font-black px-3 py-1 rounded-full border border-amber-300 shadow-sm">
+                  Starts at ₱115
+                </div>
+
+                <div class="relative aspect-square w-full rounded-2xl overflow-hidden mt-6 mb-4 shadow-sm border border-amber-100">
+                  <img 
+                    src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=85" 
+                    alt="BDC Bacsilog with Signature Cheese Sauce" 
+                    class="w-full h-full object-cover object-center transform hover:scale-108 transition-transform duration-700"
+                  />
+                  
+                  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent p-4">
+                    <div class="flex items-center justify-between text-white">
+                      <div>
+                        <h4 class="font-display text-lg font-black">BDC Bacsilog Cup</h4>
+                        <p class="text-xs text-amber-200 font-medium">Toasted Garlic Rice + Sunny Egg + Cheese Flood</p>
+                      </div>
+                      <span class="w-10 h-10 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-lg shadow">
+                        🧀
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-700 font-bold flex items-center gap-1.5">
+                      <span>🧀 Sauce Level:</span>
+                      <strong class="text-amber-700">Generous Overload</strong>
+                    </span>
+                    <span class="text-emerald-700 font-mono font-bold">100% Cheddar</span>
+                  </div>
+                  <div class="w-full bg-amber-200/60 h-2.5 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-amber-400 to-amber-600 h-full w-[88%] rounded-full"></div>
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <a 
+                    href="#menu" 
+                    class="w-full py-3.5 rounded-xl btn-cheese text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-cheese"
+                  >
+                    <span>View Menu & Prices</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE SECRET SAUCE SPOTLIGHT ==================== -->
+    <section id="story" class="py-20 bg-[#FFFDF9] border-y border-amber-200/60 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3.5 py-1.5 rounded-full border border-amber-300">
+            The Big Daddy Secret
+          </span>
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900">
+            WHY THE WHOLE NATION IS OBSESSED
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base font-medium">
+            Every Big Daddy Cup is engineered layer by layer for maximum comfort, crunch, and pure cheesy indulgence.
+          </p>
+        </div>
+
+        <!-- 4 PILLARS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white border border-amber-200/80 hover:border-amber-400 rounded-2xl p-6 transition-all group shadow-clean hover:shadow-cheese">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🧄
+            </div>
+            <h3 class="font-display text-lg font-black text-slate-900 mb-2">1. Crispy Garlic Sinangag</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              Steamed jasmine rice tossed in hot woks with aromatic browned garlic bits and savory seasoning. Never bland, always fragrant.
+            </p>
+          </div>
+
+          <div class="bg-white border border-red-200 hover:border-red-400 rounded-2xl p-6 transition-all group shadow-clean hover:shadow-cheese">
+            <div class="w-14 h-14 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🥓
+            </div>
+            <h3 class="font-display text-lg font-black text-slate-900 mb-2">2. Sizzling Meats</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              Thick honey-cured bacon crisped on the flattop, garlicky beef tapa, crunchy Japanese katsu, and smoky Hungarian sausages.
+            </p>
+          </div>
+
+          <div class="bg-white border border-amber-200/80 hover:border-amber-400 rounded-2xl p-6 transition-all group shadow-clean hover:shadow-cheese">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🍳
+            </div>
+            <h3 class="font-display text-lg font-black text-slate-900 mb-2">3. Runny Farm Eggs</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              Fried sunny-side up with crisp lace edges and a rich golden yolk that bursts across the hot rice with your first spoonful.
+            </p>
+          </div>
+
+          <div class="bg-white border-2 border-amber-400 rounded-2xl p-6 transition-all group shadow-cheese">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform shadow-md shadow-amber-500/30">
+              🧀
+            </div>
+            <h3 class="font-display text-lg font-black text-amber-800 mb-2">4. The Viral Cheese Sauce</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              Our guarded formula: silky, warm, savory-sweet aged cheddar cheese sauce poured liberally over the entire cup.
+            </p>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE CHEESE FLOOD SLIDER -->
+        <div class="mt-16 bg-gradient-to-r from-amber-50 via-amber-100/60 to-amber-50 border-2 border-amber-300 rounded-3xl p-6 sm:p-10 max-w-4xl mx-auto shadow-clean-lg">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            
+            <div class="md:col-span-7 space-y-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5">
+                <span>⚡ Interactive Experience</span>
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-black text-slate-900">
+                How Much Cheese Can You Handle?
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                Slide to control the cheese flood level for your dream cup. Whether you like a balanced savory drizzle or a complete cheddar immersion, we have you covered!
+              </p>
+
+              <div class="pt-2">
+                <input 
+                  type="range" 
+                  id="cheese-pour-range" 
+                  min="10" 
+                  max="100" 
+                  value="60" 
+                  class="cheese-slider"
+                >
+                <div class="flex justify-between text-[11px] text-slate-600 font-bold mt-2">
+                  <span>Drizzle</span>
+                  <span>Big Daddy Pour</span>
+                  <span>Niagara Falls 🌊</span>
+                </div>
+              </div>
+
+              <div class="bg-white border border-amber-300 px-4 py-2.5 rounded-xl shadow-sm">
+                <p id="cheese-pour-label" class="text-xs font-bold text-amber-900">
+                  Big Daddy Signature Pour (Generously smothered!)
+                </p>
+              </div>
+            </div>
+
+            <div class="md:col-span-5 flex flex-col items-center justify-center text-center">
+              <div id="cheese-pour-graphic" class="w-36 h-36 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-300 p-2 shadow-cheese transition-all duration-300 flex items-center justify-center">
+                <div class="w-full h-full bg-white rounded-full flex flex-col items-center justify-center text-amber-600 shadow-inner">
+                  <span class="text-4xl">🧀</span>
+                  <span class="font-display text-xs font-black uppercase tracking-wider mt-1 text-slate-900">Cheesy Bliss</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== SIGNATURE MENU SECTION ==================== -->
+    <section id="menu" class="py-20 relative bg-[#FDFBF7]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3.5 py-1.5 rounded-full border border-amber-300">
+              Freshly Sizzled • Sulit-Sarap
+            </span>
+            <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 mt-2">
+              SIGNATURE DISHES
+            </h2>
+            <p class="text-slate-600 text-sm mt-1 font-medium">
+              Discover our viral cheddar-drowned comfort rice meals & specialties.
+            </p>
+          </div>
+
+          <div class="relative w-full md:w-72">
+            <input 
+              type="text" 
+              id="menu-search"
+              placeholder="Search Bacsilog, Tapa, Sisig..." 
+              class="w-full bg-white border border-amber-300 rounded-2xl pl-10 pr-4 py-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-amber-500 shadow-sm transition-colors"
+            >
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+        </div>
+
+        <!-- CATEGORY PILLS -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+          <button onclick="filterCategory('all', this)" class="cat-pill shrink-0 px-4 py-2.5 rounded-xl text-xs font-black transition-all bg-amber-500 text-slate-950 shadow-sm">
+            All Favorites (16)
+          </button>
+          <button onclick="filterCategory('silog', this)" class="cat-pill shrink-0 px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-amber-200 hover:border-amber-400 hover:text-slate-900 shadow-sm">
+            🥓 Cheesy Silogs
+          </button>
+          <button onclick="filterCategory('rice-bowls', this)" class="cat-pill shrink-0 px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-amber-200 hover:border-amber-400 hover:text-slate-900 shadow-sm">
+            🍚 Heavy Rice Bowls
+          </button>
+          <button onclick="filterCategory('burgers-mains', this)" class="cat-pill shrink-0 px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-amber-200 hover:border-amber-400 hover:text-slate-900 shadow-sm">
+            🍔 Burgers & Sizzle
+          </button>
+          <button onclick="filterCategory('sides', this)" class="cat-pill shrink-0 px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-amber-200 hover:border-amber-400 hover:text-slate-900 shadow-sm">
+            🍟 Cheesy Bites & Sides
+          </button>
+          <button onclick="filterCategory('drinks', this)" class="cat-pill shrink-0 px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-amber-200 hover:border-amber-400 hover:text-slate-900 shadow-sm">
+            🍹 Coolers & Shakes
+          </button>
+        </div>
+
+        <!-- DISH GRID (Rendered by landing.js) -->
+        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Populated by landing.js -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== REVIEWS & FOODIE WALL ==================== -->
+    <section id="reviews" class="py-20 relative bg-white border-t border-amber-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3.5 py-1.5 rounded-full border border-amber-300">
+            #BigDaddysCup Viral Wall
+          </span>
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 mt-2">
+            WHAT CHEESY LOVERS SAY
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-amber-50/40 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between shadow-clean">
+            <div>
+              <div class="flex text-amber-500 text-sm mb-3">★★★★★</div>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4 font-medium">
+                "The cheese sauce is on another level! Unlike generic cheese powders, BDC's sauce is rich, warm, and legitimately tastes like liquid cheddar heaven. Bacsilog is an absolute staple!"
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-amber-200">
+              <div class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-xs">JA</div>
+              <div>
+                <h5 class="text-xs font-bold text-slate-900">Janine Alcantara</h5>
+                <span class="text-[10px] text-slate-500">UST Manila Student • Foodie</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-amber-50/40 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between shadow-clean">
+            <div>
+              <div class="flex text-amber-500 text-sm mb-3">★★★★★</div>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4 font-medium">
+                "Tried Big Daddy's Cup first in Tacloban and couldn't get enough. Now that they have a branch near V. Mapa, I order the Double Trouble with extra cheese almost every week!"
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-amber-200">
+              <div class="w-10 h-10 rounded-full bg-red-600 text-white font-bold flex items-center justify-center text-xs">MT</div>
+              <div>
+                <h5 class="text-xs font-bold text-slate-900">Mark Tan</h5>
+                <span class="text-[10px] text-slate-500">Software Engineer • Burauen Loyal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-amber-50/40 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between shadow-clean">
+            <div>
+              <div class="flex text-amber-500 text-sm mb-3">★★★★★</div>
+              <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-4 font-medium">
+                "Their garlic sinangag has real toasted bits, the egg yolk stays runny in delivery, and that cheese pour is ridiculously generous. Best budget comfort food in the Philippines."
+              </p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-amber-200">
+              <div class="w-10 h-10 rounded-full bg-amber-400 text-slate-950 font-bold flex items-center justify-center text-xs">CL</div>
+              <div>
+                <h5 class="text-xs font-bold text-slate-900">Carla Lim</h5>
+                <span class="text-[10px] text-slate-500">Cebu City Food Blogger</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== BRANCH LOCATOR SECTION ==================== -->
+    <section id="branches" class="py-20 relative bg-[#FDFBF7] border-t border-amber-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3.5 py-1.5 rounded-full border border-amber-300">
+              Nationwide Presence
+            </span>
+            <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 mt-2">
+              FIND A BRANCH NEAR YOU
+            </h2>
+            <p class="text-slate-600 text-sm mt-1 font-medium">
+              From our roots in Leyte & Cebu to Metro Manila's University Belt.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2 text-xs">
+            <button onclick="filterBranchCity('all')" class="px-3.5 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-black shadow-sm">
+              All Branches
+            </button>
+            <button onclick="filterBranchCity('Tacloban')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
+              Tacloban City
+            </button>
+            <button onclick="filterBranchCity('Manila')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
+              Metro Manila
+            </button>
+            <button onclick="filterBranchCity('Cebu')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
+              Cebu
+            </button>
+            <button onclick="filterBranchCity('Bulacan')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
+              Bulacan
+            </button>
+          </div>
+        </div>
+
+        <div id="branches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated by landing.js -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== VIP CLUB NEWSLETTER ==================== -->
+    <section class="py-16 bg-gradient-to-r from-amber-500 via-amber-400 to-red-500 text-slate-950 relative shadow-inner">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
+        <h3 class="font-display text-3xl sm:text-4xl font-black">
+          JOIN THE CHEESY VIP REWARDS CLUB
+        </h3>
+        <p class="text-sm font-bold max-w-lg mx-auto opacity-95">
+          Sign up with your email to unlock exclusive secret menu drops, free extra cheese drizzle coupons, and birthday treats!
+        </p>
+        <form onsubmit="submitNewsletter(event)" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
+          <input 
+            type="email" 
+            id="newsletter-email" 
+            placeholder="Enter your email address..." 
+            required 
+            class="flex-1 px-4 py-3 rounded-xl bg-white text-slate-900 placeholder-slate-400 text-xs focus:outline-none shadow-sm"
+          >
+          <button type="submit" class="px-6 py-3 rounded-xl bg-slate-950 hover:bg-slate-900 text-amber-300 font-black text-xs uppercase tracking-wider transition-colors shadow-md">
+            Claim 15% Off
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-amber-100/70 border-t border-amber-300/80 pt-16 pb-12 text-slate-600 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-amber-200">
+        
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-xl shadow-md text-slate-950">
+              🧀
+            </div>
+            <span class="font-display text-xl font-black text-slate-900">
+              BIG DADDY'S <span class="text-amber-600">CUP</span>
+            </span>
+          </div>
+          <p class="text-slate-600 leading-relaxed font-medium">
+            The pioneer of cup-serviced cheesy comfort food in the Philippines. Hot toasted garlic sinangag, searing meats, and our viral signature cheese sauce.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-display text-sm font-black text-slate-900 uppercase tracking-wider">Explore</h4>
+          <ul class="space-y-2 font-medium">
+            <li><a href="#story" class="hover:text-amber-700 transition-colors">Our Secret Cheese Sauce</a></li>
+            <li><a href="#menu" class="hover:text-amber-700 transition-colors">Bacsilog & Silogs</a></li>
+            <li><a href="#branches" class="hover:text-amber-700 transition-colors">Store Branch Directory</a></li>
+            <li><a href="#reviews" class="hover:text-amber-700 transition-colors">Customer Reviews</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-display text-sm font-black text-slate-900 uppercase tracking-wider">Customer Portal</h4>
+          <ul class="space-y-2 font-medium">
+            <li><a href="javascript:void(0)" onclick="openLoginModal()" class="hover:text-amber-700 transition-colors">👤 Customer Login</a></li>
+            <li><a href="#branches" class="hover:text-amber-700 transition-colors">📍 Branch Storefronts</a></li>
+            <li><span class="text-slate-700 font-bold">Hotline: (02) 8711-2099</span></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-display text-sm font-black text-slate-900 uppercase tracking-wider">Locations</h4>
+          <p class="text-[11px] leading-relaxed text-slate-600 font-medium">
+            • <strong>Metro Manila:</strong> Sta. Mesa V. Mapa, Morayta U-Belt<br>
+            • <strong>Eastern Visayas:</strong> Tacloban Downtown, Sagkahan<br>
+            • <strong>Central Visayas:</strong> Talamban Cebu, Banilad<br>
+            • <strong>Central Luzon:</strong> Malolos, Bulacan
+          </p>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-medium">
+        <p>© 2026 Big Daddy's Cup (BDC) Restaurant Franchising Corp. All rights reserved.</p>
+        <p>Crafted with love & cheddar cheese for Filipino comfort food lovers nationwide.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== LOGIN / SIGN UP MODAL ==================== -->
+  <div id="login-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white border-2 border-amber-300 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
+      
+      <button 
+        onclick="closeLoginModal()" 
+        class="absolute top-5 right-5 w-8 h-8 rounded-full bg-amber-50 text-slate-500 hover:text-slate-900 border border-amber-200 flex items-center justify-center font-bold text-sm"
+      >
+        ✕
+      </button>
+
+      <div class="text-center pt-2">
+        <div class="w-14 h-14 rounded-2xl bg-amber-100 border border-amber-300 mx-auto flex items-center justify-center text-3xl mb-3 shadow-sm">
+          🧀
+        </div>
+        <h3 class="font-display text-2xl font-black text-slate-900 tracking-normal">
+          WELCOME TO BIG DADDY'S
+        </h3>
+        <p class="text-xs text-slate-600 mt-1 font-medium tracking-wide">
+          Log in to track your orders, claim Cheesy Rewards, and order with 1-click!
+        </p>
+      </div>
+
+      <!-- Form Tabs -->
+      <div class="grid grid-cols-2 gap-2 bg-amber-50/60 p-1 rounded-xl border border-amber-200 text-xs font-bold">
+        <button 
+          id="auth-tab-signin" 
+          onclick="switchAuthTab('signin')" 
+          class="py-2 rounded-lg bg-amber-500 text-slate-950 font-black shadow-sm transition-all"
+        >
+          Customer Sign In
+        </button>
+        <button 
+          id="auth-tab-signup" 
+          onclick="switchAuthTab('signup')" 
+          class="py-2 rounded-lg text-slate-600 hover:text-slate-900 font-bold transition-all"
+        >
+          New Customer
+        </button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signin-form" onsubmit="handleLoginSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block text-slate-700 font-bold mb-1 tracking-wide">Mobile Number or Email</label>
+          <input 
+            type="text" 
+            id="login-identifier" 
+            value="" 
+            placeholder="Enter mobile number or email" 
+            required
+            class="w-full bg-amber-50/40 border border-amber-200 rounded-xl px-3.5 py-2.5 text-slate-900 font-semibold focus:outline-none focus:border-amber-500 shadow-sm"
+          >
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-slate-700 font-bold tracking-wide">Password</label>
+            <a href="javascript:void(0)" onclick="showToast('Password reset link sent to mobile/email 📲')" class="text-amber-700 hover:text-amber-800 text-[11px] font-bold">Forgot?</a>
+          </div>
+          <input 
+            type="password" 
+            id="login-password" 
+            value="" 
+            placeholder="Enter your password" 
+            required
+            class="w-full bg-amber-50/40 border border-amber-200 rounded-xl px-3.5 py-2.5 text-slate-900 font-semibold focus:outline-none focus:border-amber-500 shadow-sm"
+          >
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-slate-600 font-medium">
+            <input type="checkbox" checked class="rounded text-amber-500">
+            <span>Keep me logged in</span>
+          </label>
+          <span class="text-amber-700 font-bold">Customer Portal</span>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full py-3.5 rounded-2xl btn-cheese font-black text-xs uppercase tracking-wider shadow-cheese flex items-center justify-center gap-2"
+        >
+          <span>Sign In as Customer</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+      </form>
+
+      <!-- Social Logins -->
+      <div class="relative py-1 text-center">
+        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-amber-200"></div></div>
+        <span class="relative bg-white px-3 text-[11px] text-slate-400 font-bold tracking-wider uppercase">Or Continue With</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button 
+          type="button"
+          onclick="quickDemoLogin()" 
+          class="py-2.5 px-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold flex items-center justify-center gap-2 shadow-sm"
+        >
+          <span>🌐 Google</span>
+        </button>
+        <button 
+          type="button"
+          onclick="quickDemoLogin()" 
+          class="py-2.5 px-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold flex items-center justify-center gap-2 shadow-sm"
+        >
+          <span>📱 Facebook</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== ITEM DETAILS MODAL ==================== -->
+  <div id="product-modal" class="fixed inset-0 bg-slate-950/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div id="product-modal-content" class="bg-white border-2 border-amber-300 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl">
+      <!-- Populated by landing.js -->
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Landing Page Script -->
+  <script src="landing.js"></script>
+</body>
+</html>
