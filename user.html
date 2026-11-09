@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Orders & Store | Big Daddy's Cup</title>
-  <meta name="description" content="View your Big Daddy's Cup customer orders, live delivery tracking, and store branch information.">
+  <title>Customer Store & Order Portal | Big Daddy's Cup</title>
+  <meta name="description" content="Order Big Daddy's Cup cheesy silogs, customize your cup, and track your live order status.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧀</text></svg>">
   
   <!-- Tailwind CSS CDN -->
@@ -32,9 +32,9 @@
   </script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#FFFDF9] text-slate-800 min-h-screen flex flex-col font-sans">
+<body class="bg-[#FFFDF9] text-slate-800 min-h-screen flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950">
 
-  <!-- ==================== HEADER (CUSTOMER PORTAL) ==================== -->
+  <!-- ==================== HEADER (CUSTOMER STORE PORTAL) ==================== -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/70 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
@@ -54,27 +54,31 @@
             BIG DADDY'S <span class="text-amber-500">CUP</span>
           </span>
           <span class="text-[10px] uppercase tracking-wider text-amber-700 font-bold block -mt-0.5">
-            Customer Portal • My Orders & Store
+            Customer Store • Order &amp; Live Tracking
           </span>
         </div>
       </a>
 
-      <!-- HEADER ACTIONS -->
-      <div class="flex items-center gap-3">
-        <a 
-          href="index.html" 
-          class="px-4 py-2.5 rounded-xl border border-amber-300 bg-amber-50/70 hover:bg-amber-100 text-slate-700 hover:text-slate-950 text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
+      <!-- HEADER RIGHT ACTIONS -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Quick Cart Indicator Button (When Logged In) -->
+        <button 
+          id="header-cart-btn"
+          onclick="scrollToCheckoutPanel()" 
+          class="hidden px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black flex items-center gap-2 shadow-sm transition-all"
         >
-          <span>← Back to Menu</span>
-        </a>
+          <span>🛒 My Cup</span>
+          <span id="header-cart-count" class="px-2 py-0.5 rounded-full bg-slate-950 text-amber-300 text-[10px] font-black">0</span>
+          <span id="header-cart-total" class="hidden sm:inline font-bold">• ₱0</span>
+        </button>
 
         <button 
           id="portal-logout-btn"
           onclick="logoutCustomer()" 
-          class="px-4 py-2.5 rounded-xl bg-white hover:bg-red-50 text-red-600 border border-red-200 text-xs font-black uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5"
+          class="px-3.5 py-2.5 rounded-xl bg-white hover:bg-red-50 text-red-600 border border-red-200 text-xs font-black uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4-4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-          <span>Log Out</span>
+          <span class="hidden sm:inline">Log Out</span>
         </button>
       </div>
 
@@ -89,25 +93,61 @@
       <div id="customer-locked-screen" class="hidden py-12 text-center">
         <div class="max-w-md mx-auto bg-white border-2 border-amber-300 rounded-3xl p-8 sm:p-10 shadow-clean-lg space-y-6">
           <div class="w-16 h-16 rounded-2xl bg-amber-100 border border-amber-300 mx-auto flex items-center justify-center text-3xl shadow-sm">
-            👤
+            🔒
           </div>
           <div>
-            <h2 class="font-display text-2xl font-black text-slate-900">
-              Customer Sign In
+            <span class="text-[10px] font-black uppercase tracking-widest text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300">
+              Customer Account Required
+            </span>
+            <h2 class="font-display text-2xl sm:text-3xl font-black text-slate-900 mt-2">
+              SIGN IN TO ORDER
             </h2>
             <p class="text-xs text-slate-600 mt-1 font-medium">
-              Please log in to your customer account to view your orders and selected store.
+              Please log in to your customer account to browse the store menu, place your cheesy cup order, and track live delivery status.
             </p>
           </div>
 
+          <!-- ONE-CLICK INSTANT DEMO ACCOUNT CALLOUT -->
+          <div class="bg-gradient-to-r from-amber-400/25 via-amber-300/35 to-amber-500/25 border-2 border-amber-400 rounded-2xl p-4 space-y-2.5 text-center shadow-sm">
+            <div class="flex items-center justify-center gap-2">
+              <span class="text-xl">⚡</span>
+              <span class="text-xs font-black uppercase tracking-wider text-slate-950">1-Click Instant Demo Account</span>
+            </div>
+            <p class="text-[11px] text-amber-950 font-bold">
+              Instant login as Juan Dela Cruz (No password or typing needed)
+            </p>
+            <button 
+              type="button"
+              onclick="quickDemoCustomerLogin()" 
+              class="w-full py-3.5 rounded-xl btn-cheese font-black text-xs uppercase tracking-wider shadow-cheese flex items-center justify-center gap-2 active:scale-95 transition-all"
+            >
+              <span>⚡ Enter Store With Demo Account</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+          </div>
+
+          <div class="relative py-1 text-center">
+            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-amber-200"></div></div>
+            <span class="relative bg-white px-3 text-[10px] text-slate-400 font-bold uppercase tracking-wider">Or Sign In with Custom Details</span>
+          </div>
+
           <form onsubmit="handleCustomerLoginDirect(event)" class="space-y-3.5 text-left text-xs">
+            <div>
+              <label class="block text-slate-700 font-bold mb-1">Full Name or Nickname</label>
+              <input 
+                type="text" 
+                id="direct-login-name" 
+                placeholder="e.g. Juan Dela Cruz" 
+                class="w-full bg-amber-50/40 border border-amber-200 rounded-xl px-3.5 py-2.5 text-slate-900 font-semibold focus:outline-none focus:border-amber-500 shadow-sm"
+              >
+            </div>
+
             <div>
               <label class="block text-slate-700 font-bold mb-1">Mobile Number or Email</label>
               <input 
                 type="text" 
                 id="direct-login-identifier" 
-                value="" 
-                placeholder="Enter mobile number or email" 
+                placeholder="e.g. 0917 123 4567 or email@domain.com" 
                 required
                 class="w-full bg-amber-50/40 border border-amber-200 rounded-xl px-3.5 py-2.5 text-slate-900 font-semibold focus:outline-none focus:border-amber-500 shadow-sm"
               >
@@ -118,7 +158,6 @@
               <input 
                 type="password" 
                 id="direct-login-password" 
-                value="" 
                 placeholder="Enter password" 
                 required
                 class="w-full bg-amber-50/40 border border-amber-200 rounded-xl px-3.5 py-2.5 text-slate-900 font-semibold focus:outline-none focus:border-amber-500 shadow-sm"
@@ -129,17 +168,30 @@
               type="submit" 
               class="w-full py-3.5 rounded-2xl btn-cheese font-black text-xs uppercase tracking-wider shadow-cheese flex items-center justify-center gap-2 mt-2"
             >
-              <span>Sign In as Customer</span>
+              <span>Sign In &amp; Start Ordering</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
           </form>
 
-          <div class="pt-2">
+          <div class="relative py-1 text-center">
+            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-amber-200"></div></div>
+            <span class="relative bg-white px-3 text-[10px] text-slate-400 font-bold uppercase tracking-wider">Or Quick Access</span>
+          </div>
+
+          <button 
+            type="button"
+            onclick="quickDemoCustomerLogin()" 
+            class="w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-black border border-amber-300 transition-colors"
+          >
+            ⚡ Instant Customer Demo Sign In
+          </button>
+
+          <div class="pt-1">
             <a 
               href="index.html" 
-              class="block w-full py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-slate-700 text-xs font-bold border border-amber-200 transition-colors"
+              class="block w-full py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-bold border border-slate-200 transition-colors"
             >
-              ← Back to Storefront
+              ← Return to Landing Page
             </a>
           </div>
         </div>
@@ -148,86 +200,59 @@
       <!-- ==================== 2. CUSTOMER PORTAL VIEW (When Logged In) ==================== -->
       <div id="customer-portal-screen" class="space-y-8">
 
-        <!-- A. CUSTOMER ACCOUNT HEADER BANNER -->
-        <div class="bg-white border border-amber-200 rounded-3xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-clean">
-          <div class="flex items-center gap-4">
-            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-2xl font-black shadow-sm">
-              <span id="cust-avatar-icon">👤</span>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <h2 id="cust-account-name" class="font-display text-2xl font-black text-slate-900">
-                  Customer Account
-                </h2>
-                <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold border border-amber-300 uppercase tracking-wider">
-                  Customer
-                </span>
-              </div>
-              <p id="cust-account-details" class="text-xs text-slate-500 mt-0.5 font-medium">
-                Customer Profile • Orders & Delivery Hub
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <button 
-              onclick="openQuickOrderModal()" 
-              class="px-4 py-2.5 rounded-xl btn-cheese text-xs font-black uppercase tracking-wider shadow-cheese flex items-center gap-1.5"
-            >
-              <span>+ Place Order at this Store</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- B. STORE DISPLAY CARD ("it must display the store") -->
+        <!-- A. CUSTOMER ACCOUNT & SELECTED STORE BANNER -->
         <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 p-0.5 rounded-3xl shadow-cheese">
-          <div class="bg-white rounded-[22px] p-6 sm:p-7">
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
+          <div class="bg-white rounded-[22px] p-5 sm:p-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               
-              <!-- Store Details -->
-              <div class="space-y-3">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-xs font-black uppercase tracking-wider bg-amber-100 text-amber-900 px-3 py-1 rounded-full border border-amber-300 flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Selected Store Branch</span>
-                  </span>
-                  <span id="store-status-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-                    🟢 Open Now
-                  </span>
-                </div>
+              <!-- Left: Store Image + Customer & Store Info -->
+              <div class="flex flex-col sm:flex-row sm:items-center gap-4 flex-1">
+                <img 
+                  id="store-image-display"
+                  src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" 
+                  alt="Selected Branch" 
+                  class="w-full sm:w-28 h-28 rounded-2xl object-cover border-2 border-amber-300 shadow-sm shrink-0"
+                >
+                <div class="space-y-1.5">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black uppercase tracking-wider border border-amber-300 flex items-center gap-1">
+                      <span>👤</span>
+                      <span id="cust-account-name">Customer</span>
+                    </span>
+                    <span id="store-status-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      🟢 Open Now
+                    </span>
+                    <span id="cust-account-details" class="text-[11px] text-slate-400 font-semibold hidden md:inline">
+                      • Verified Customer
+                    </span>
+                  </div>
 
-                <div>
-                  <h3 id="store-name-display" class="font-display text-2xl sm:text-3xl font-black text-slate-900">
+                  <h2 id="store-name-display" class="font-display text-xl sm:text-2xl font-black text-slate-900">
                     Big Daddy's Cup - V. Mapa Sta. Mesa Branch
-                  </h3>
-                  <p id="store-address-display" class="text-xs sm:text-sm text-slate-600 mt-1 font-medium flex items-center gap-1.5">
+                  </h2>
+
+                  <p id="store-address-display" class="text-xs text-slate-600 font-medium flex items-center gap-1.5">
                     <span>📍</span>
                     <span>V. Mapa Blvd cor Ramon Magsaysay Blvd, Sta. Mesa, Manila</span>
                   </p>
-                </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
-                  <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-3">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Store Hours</span>
-                    <span id="store-hours-display" class="text-slate-800 font-bold">Open 24/7 (Daily)</span>
-                  </div>
-
-                  <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-3">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Direct Store Hotline</span>
-                    <span id="store-phone-display" class="text-slate-800 font-bold">+63 (02) 8711-2099</span>
-                  </div>
-
-                  <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-3">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Services Available</span>
-                    <span class="text-amber-800 font-bold">🛵 Delivery • 🥡 Takeout</span>
+                  <div class="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-600 font-semibold">
+                    <span class="flex items-center gap-1">
+                      <span>🕒</span>
+                      <span id="store-hours-display">Open 24/7 (Daily)</span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <span>📞</span>
+                      <span id="store-phone-display" class="text-slate-900 font-bold">+63 (02) 8711-2099</span>
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <!-- Store Switcher Dropdown -->
-              <div class="shrink-0 bg-amber-50 border border-amber-200 rounded-2xl p-4 md:w-72 space-y-2">
-                <label class="block text-xs font-black text-amber-900 uppercase tracking-wider">
-                  Change Store Branch
+              <!-- Right: Store Branch Switcher -->
+              <div class="shrink-0 bg-amber-50/90 border border-amber-200 rounded-2xl p-4 lg:w-72 space-y-2">
+                <label class="block text-[11px] font-black text-amber-900 uppercase tracking-wider">
+                  📍 Ordering From Store Branch
                 </label>
                 <select 
                   id="store-selector" 
@@ -238,11 +263,11 @@
                   <option value="mnl-morayta">FEU / Morayta U-Belt (Manila)</option>
                   <option value="tac-paterno">Flagship - Paterno St. (Tacloban)</option>
                   <option value="tac-sagkahan">Sagkahan Branch (Tacloban)</option>
+                  <option value="cebu-talamban">Talamban Univ. Corner (Cebu)</option>
                   <option value="bulacan-malolos">Malolos Crossing (Bulacan)</option>
-                  <option value="cebu-talamban">Talamban Univ. (Cebu)</option>
                 </select>
-                <p class="text-[11px] text-slate-500 font-medium">
-                  Select your nearest branch for fastest delivery and fresh griddle cooking.
+                <p class="text-[10px] text-slate-500 font-medium">
+                  Switch branch anytime for delivery or store pickup.
                 </p>
               </div>
 
@@ -250,103 +275,293 @@
           </div>
         </div>
 
-        <!-- C. ORDERS NAVIGATION ("can view orders") -->
-        <div class="flex border-b border-amber-200 gap-6 text-sm">
-          <button 
-            id="tab-btn-active"
-            onclick="switchOrdersView('active')" 
-            class="pb-3 font-black border-b-2 border-amber-500 text-amber-800 flex items-center gap-2 transition-colors"
-          >
-            <span>🛵 Active Order</span>
-            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">Live Status</span>
-          </button>
+        <!-- B. MAIN PORTAL NAVIGATION TABS -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-amber-200 pb-1">
+          <div class="flex flex-wrap gap-2 sm:gap-6 text-xs sm:text-sm">
+            <button 
+              id="tab-btn-store"
+              onclick="switchPortalTab('store')" 
+              class="pb-3 px-2 font-black border-b-2 border-amber-500 text-amber-800 flex items-center gap-2 transition-all"
+            >
+              <span>🧀 Store Products &amp; Order</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black">16 Dishes</span>
+            </button>
 
-          <button 
-            id="tab-btn-history"
-            onclick="switchOrdersView('history')" 
-            class="pb-3 font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center gap-2 transition-colors"
-          >
-            <span>📜 Past Order History</span>
-            <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">3 Completed</span>
-          </button>
+            <button 
+              id="tab-btn-active"
+              onclick="switchPortalTab('active')" 
+              class="pb-3 px-2 font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center gap-2 transition-all"
+            >
+              <span>🛵 My Order Status</span>
+              <span id="active-order-badge" class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-300">Live Tracker</span>
+            </button>
+
+            <button 
+              id="tab-btn-history"
+              onclick="switchPortalTab('history')" 
+              class="pb-3 px-2 font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center gap-2 transition-all"
+            >
+              <span>📜 Order History</span>
+              <span id="history-count-badge" class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">3</span>
+            </button>
+          </div>
+
+          <div class="text-xs text-slate-500 font-medium hidden md:block pb-2">
+            🔥 Freshly cooked upon order • Signature Cheddar Cheese Sauce
+          </div>
         </div>
 
-        <!-- ==================== 1. ACTIVE ORDER SECTION ==================== -->
-        <div id="view-active-order" class="space-y-6">
+        <!-- ==================== TAB 1: STORE MENU & ORDERING VIEW ==================== -->
+        <div id="view-store-menu" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT 8 COLS: PRODUCT CATALOG -->
+            <div class="lg:col-span-8 space-y-6">
+              
+              <!-- Search & Filter Bar -->
+              <div class="bg-white border border-amber-200 rounded-2xl p-4 shadow-clean space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h3 class="font-display text-xl font-black text-slate-900">
+                      CHOOSE YOUR BIG DADDY CUP
+                    </h3>
+                    <p class="text-xs text-slate-500 font-medium">
+                      Click any dish to customize cheese level &amp; egg style, or add directly to your order cup.
+                    </p>
+                  </div>
+
+                  <!-- Search Input -->
+                  <div class="relative w-full sm:w-64">
+                    <input 
+                      type="text" 
+                      id="store-search-input"
+                      oninput="handleStoreSearch(this.value)"
+                      placeholder="Search Bacsilog, Sisig, Drinks..." 
+                      class="w-full bg-amber-50/40 border border-amber-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 font-semibold"
+                    >
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  </div>
+                </div>
+
+                <!-- Category Pills -->
+                <div id="store-category-pills" class="flex items-center gap-2 overflow-x-auto pb-1 branch-scroll-row">
+                  <button onclick="filterStoreCategory('all', this)" class="store-cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-black bg-amber-500 text-slate-950 shadow-sm transition-all">
+                    All Menu (16)
+                  </button>
+                  <button onclick="filterStoreCategory('silog', this)" class="store-cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-amber-200 hover:bg-amber-50 transition-all">
+                    🥓 Cheesy Silogs
+                  </button>
+                  <button onclick="filterStoreCategory('rice-bowls', this)" class="store-cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-amber-200 hover:bg-amber-50 transition-all">
+                    🍚 Heavy Rice Bowls
+                  </button>
+                  <button onclick="filterStoreCategory('burgers-mains', this)" class="store-cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-amber-200 hover:bg-amber-50 transition-all">
+                    🍔 Burgers &amp; Mains
+                  </button>
+                  <button onclick="filterStoreCategory('sides', this)" class="store-cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-amber-200 hover:bg-amber-50 transition-all">
+                    🍟 Cheesy Sides
+                  </button>
+                  <button onclick="filterStoreCategory('drinks', this)" class="store-cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-amber-200 hover:bg-amber-50 transition-all">
+                    🍹 Coolers &amp; Shakes
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product Grid -->
+              <div id="user-products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- Populated by user.js -->
+              </div>
+
+            </div>
+
+            <!-- RIGHT 4 COLS: STICKY MY ORDER CUP & CHECKOUT -->
+            <div id="checkout-panel-section" class="lg:col-span-4 lg:sticky lg:top-24 space-y-5">
+              <div class="bg-white border-2 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-clean-lg space-y-5">
+                
+                <!-- Cart Header -->
+                <div class="flex items-center justify-between pb-3 border-b border-amber-200">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl font-black shadow-sm">
+                      🛒
+                    </div>
+                    <div>
+                      <h3 class="font-display text-lg font-black text-slate-900">
+                        My Order Cup
+                      </h3>
+                      <p id="cart-store-subtitle" class="text-[11px] text-amber-800 font-bold">
+                        V. Mapa Sta. Mesa Branch
+                      </p>
+                    </div>
+                  </div>
+                  <button 
+                    onclick="clearCustomerCart()" 
+                    class="text-[11px] text-slate-400 hover:text-red-600 font-bold transition-colors"
+                  >
+                    Clear All
+                  </button>
+                </div>
+
+                <!-- Delivery vs Pickup Toggle -->
+                <div class="grid grid-cols-2 gap-2 bg-amber-50 p-1 rounded-xl border border-amber-200 text-xs">
+                  <button 
+                    type="button"
+                    id="mode-btn-delivery"
+                    onclick="setOrderMode('delivery')"
+                    class="py-2 rounded-lg bg-amber-500 text-slate-950 font-black shadow-sm transition-all"
+                  >
+                    🛵 Delivery (₱49)
+                  </button>
+                  <button 
+                    type="button"
+                    id="mode-btn-pickup"
+                    onclick="setOrderMode('pickup')"
+                    class="py-2 rounded-lg text-slate-600 hover:text-slate-900 font-bold transition-all"
+                  >
+                    🥡 Store Pickup (Free)
+                  </button>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="user-cart-items" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                  <!-- Populated by user.js -->
+                </div>
+
+                <!-- Delivery Address & Notes -->
+                <div class="space-y-3 pt-2 border-t border-amber-200 text-xs">
+                  <div id="delivery-address-group">
+                    <label class="block text-slate-700 font-bold mb-1">📍 Delivery Address</label>
+                    <input 
+                      type="text" 
+                      id="checkout-address" 
+                      value="Unit 402, Sta. Mesa, Manila (Near V. Mapa LRT2)" 
+                      placeholder="House/Unit No., Street, Barangay, City"
+                      class="w-full bg-amber-50/50 border border-amber-200 rounded-xl px-3 py-2 text-slate-900 font-semibold focus:outline-none focus:border-amber-500"
+                    >
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label class="block text-slate-700 font-bold mb-1">💳 Payment Method</label>
+                      <select 
+                        id="checkout-payment" 
+                        class="w-full bg-amber-50/50 border border-amber-200 rounded-xl px-2.5 py-2 text-slate-900 font-bold focus:outline-none focus:border-amber-500"
+                      >
+                        <option value="Cash on Delivery (COD)">💵 Cash on Delivery</option>
+                        <option value="GCash e-Wallet">📱 GCash</option>
+                        <option value="Maya / Credit Card">💳 Maya / Card</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-slate-700 font-bold mb-1">🏷️ Promo Code</label>
+                      <div class="flex gap-1">
+                        <input 
+                          type="text" 
+                          id="checkout-promo" 
+                          placeholder="CHEESY15" 
+                          class="w-full bg-amber-50/50 border border-amber-200 rounded-xl px-2.5 py-2 text-slate-900 font-bold uppercase focus:outline-none focus:border-amber-500"
+                        >
+                        <button 
+                          type="button"
+                          onclick="applyCustomerPromo()" 
+                          class="px-2.5 py-2 rounded-xl bg-slate-900 text-amber-300 font-black text-[10px] shrink-0 hover:bg-slate-800"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <input 
+                      type="text" 
+                      id="checkout-notes" 
+                      placeholder="Optional rider/kitchen notes (e.g. extra hot cheese, utensils)..."
+                      class="w-full bg-amber-50/40 border border-amber-200 rounded-xl px-3 py-2 text-slate-800 font-medium focus:outline-none focus:border-amber-500"
+                    >
+                  </div>
+                </div>
+
+                <!-- Totals Summary -->
+                <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 space-y-1.5 text-xs">
+                  <div class="flex justify-between text-slate-600 font-medium">
+                    <span>Items Subtotal</span>
+                    <span id="checkout-subtotal" class="font-bold text-slate-900">₱0</span>
+                  </div>
+                  <div class="flex justify-between text-slate-600 font-medium">
+                    <span>Fulfillment Fee</span>
+                    <span id="checkout-delivery-fee" class="font-bold text-slate-900">₱49</span>
+                  </div>
+                  <div id="checkout-discount-row" class="hidden justify-between text-emerald-700 font-bold">
+                    <span>Promo Discount (15%)</span>
+                    <span id="checkout-discount">-₱0</span>
+                  </div>
+                  <div class="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-amber-200">
+                    <span>Total Amount</span>
+                    <span id="checkout-grand-total" class="font-display text-lg text-amber-600">₱0</span>
+                  </div>
+                </div>
+
+                <!-- Submit Order Button -->
+                <button 
+                  type="button"
+                  onclick="submitCustomerOrder()" 
+                  class="w-full py-3.5 px-4 rounded-2xl btn-cheese font-black text-xs uppercase tracking-wider shadow-cheese flex items-center justify-center gap-2"
+                >
+                  <span>🧀 Place Order Now</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================== TAB 2: ACTIVE ORDER STATUS & LIVE TRACKER ==================== -->
+        <div id="view-active-order" class="hidden space-y-6">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             <!-- LEFT: 5-STEP ORDER STATUS TRACKER -->
             <div class="lg:col-span-7 bg-white border border-amber-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-clean">
-              <div class="flex items-center justify-between pb-4 border-b border-amber-200">
+              <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-amber-200">
                 <div>
-                  <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Order Reference</span>
-                  <h3 id="active-order-id" class="font-display text-2xl font-black text-amber-600">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Order Reference</span>
+                    <span id="active-order-mode-pill" class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-[10px] font-black uppercase">🛵 Delivery</span>
+                  </div>
+                  <h3 id="active-order-id" class="font-display text-2xl sm:text-3xl font-black text-amber-600 mt-0.5">
                     #BDC-89241
                   </h3>
-                  <span id="active-order-store-tag" class="text-xs text-slate-600 font-medium">
+                  <span id="active-order-store-tag" class="text-xs text-slate-600 font-medium block">
                     Fulfilling from: Big Daddy's Cup V. Mapa Sta. Mesa
                   </span>
                 </div>
 
                 <div class="text-right">
-                  <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Estimated Time</span>
-                  <h4 id="active-order-eta" class="font-display text-xl font-black text-emerald-600">
-                    7-10 mins
+                  <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block">Estimated Arrival</span>
+                  <h4 id="active-order-eta" class="font-display text-xl sm:text-2xl font-black text-emerald-600">
+                    12–15 mins
                   </h4>
+                  <span id="active-order-time" class="text-[11px] text-slate-400 font-medium">Placed Today</span>
                 </div>
               </div>
 
+              <!-- Interactive Status Simulator Control Bar -->
+              <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+                <div class="text-xs">
+                  <span class="font-black text-slate-900 block">⚡ Live Kitchen &amp; Rider Status</span>
+                  <span id="active-status-summary" class="text-amber-800 font-semibold">Step 2 of 5 • Sizzling on Griddle</span>
+                </div>
+                <button 
+                  type="button"
+                  onclick="advanceOrderStatusStep()" 
+                  class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 text-xs font-black shadow-sm transition-all"
+                >
+                  Simulate Next Step →
+                </button>
+              </div>
+
               <!-- 5-STEP STATUS PROGRESS -->
-              <div class="space-y-6 py-2">
-                <div id="step-1" class="tracker-step completed flex items-start gap-4">
-                  <div class="tracker-icon w-10 h-10 rounded-full border-2 border-amber-500 bg-amber-400 flex items-center justify-center font-bold text-sm shrink-0 text-slate-950">
-                    ✓
-                  </div>
-                  <div>
-                    <h5 class="text-sm font-bold text-slate-900">1. Order Confirmed by Store</h5>
-                    <p class="text-xs text-slate-500">Store received your order and queued for the griddle.</p>
-                  </div>
-                </div>
-
-                <div id="step-2" class="tracker-step completed flex items-start gap-4">
-                  <div class="tracker-icon w-10 h-10 rounded-full border-2 border-amber-500 bg-amber-400 flex items-center justify-center font-bold text-sm shrink-0 text-slate-950">
-                    ✓
-                  </div>
-                  <div>
-                    <h5 class="text-sm font-bold text-slate-900">2. Sizzling on Griddle</h5>
-                    <p class="text-xs text-slate-500">Toasting garlic sinangag rice, frying crisp bacon, and searing eggs.</p>
-                  </div>
-                </div>
-
-                <div id="step-3" class="tracker-step active flex items-start gap-4">
-                  <div class="tracker-icon w-10 h-10 rounded-full border-2 border-red-500 bg-red-600 flex items-center justify-center font-bold text-sm shrink-0 text-white">
-                    🧀
-                  </div>
-                  <div>
-                    <h5 class="text-sm font-bold text-amber-700">3. Smothering Signature Cheese Sauce (In Progress)</h5>
-                    <p class="text-xs text-slate-600 font-medium">Chefs are generously flooding your cups with hot velvety cheddar cheese!</p>
-                  </div>
-                </div>
-
-                <div id="step-4" class="tracker-step flex items-start gap-4 opacity-40">
-                  <div class="tracker-icon w-10 h-10 rounded-full border-2 border-slate-300 bg-slate-100 flex items-center justify-center font-bold text-sm shrink-0 text-slate-400">
-                    🛵
-                  </div>
-                  <div>
-                    <h5 class="text-sm font-bold text-slate-800">4. Out for Delivery</h5>
-                    <p class="text-xs text-slate-500">Rider Kuya Junjun is in transit to your delivery address.</p>
-                  </div>
-                </div>
-
-                <div id="step-5" class="tracker-step flex items-start gap-4 opacity-40">
-                  <div class="tracker-icon w-10 h-10 rounded-full border-2 border-slate-300 bg-slate-100 flex items-center justify-center font-bold text-sm shrink-0 text-slate-400">
-                    🎉
-                  </div>
-                  <div>
-                    <h5 class="text-sm font-bold text-slate-800">5. Delivered</h5>
-                    <p class="text-xs text-slate-500">Order arrived! Dig in and enjoy your Big Daddy Cup.</p>
-                  </div>
-                </div>
+              <div id="tracker-steps-container" class="space-y-5 py-2">
+                <!-- Populated dynamically by user.js -->
               </div>
 
               <!-- RIDER & STORE CONTACT BAR -->
@@ -356,13 +571,18 @@
                     🛵
                   </div>
                   <div>
-                    <h5 class="text-sm font-black text-slate-900">Delivery Rider: Kuya Junjun</h5>
-                    <p class="text-xs text-slate-600 font-medium">Honda Click 125 (Plate: 892-NED)</p>
+                    <h5 class="text-sm font-black text-slate-900">Assigned Rider: Kuya Junjun</h5>
+                    <p class="text-xs text-slate-600 font-medium">Honda Click 125 (Plate: 892-NED) • Insulated Thermal Box</p>
                   </div>
                 </div>
-                <button onclick="showToast('Calling rider hotline (+63 929 112 4001)...')" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-amber-800 text-xs font-bold border border-amber-300 shadow-sm">
-                  Call Rider
-                </button>
+                <div class="flex items-center gap-2">
+                  <button onclick="showToast('Calling rider hotline (+63 929 112 4001)... 📞')" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-amber-800 text-xs font-bold border border-amber-300 shadow-sm">
+                    📞 Call Rider
+                  </button>
+                  <button onclick="switchPortalTab('store')" class="px-4 py-2 rounded-xl btn-cheese text-xs font-black shadow-sm">
+                    + Add More Items
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -373,73 +593,55 @@
               <div class="bg-white border border-amber-200 rounded-3xl p-6 shadow-clean space-y-4">
                 <div class="flex items-center justify-between">
                   <h4 class="font-display text-base font-black text-slate-900">
-                    Items in Order
+                    Ordered Meals &amp; Summary
                   </h4>
-                  <span class="text-xs text-amber-800 font-bold bg-amber-100 px-2.5 py-0.5 rounded-full">
+                  <span id="active-order-item-count" class="text-xs text-amber-800 font-bold bg-amber-100 px-2.5 py-0.5 rounded-full">
                     3 Items
                   </span>
                 </div>
 
-                <div class="space-y-3 pt-1">
-                  <div class="flex items-center justify-between text-xs py-2 border-b border-amber-100">
-                    <div>
-                      <span class="font-bold text-slate-900">2x BDC Bacsilog (Signature)</span>
-                      <p class="text-[11px] text-amber-800 font-semibold">+ Generous Cheddar Flood, Runny Egg</p>
-                    </div>
-                    <span class="font-black text-slate-900">₱230</span>
-                  </div>
-
-                  <div class="flex items-center justify-between text-xs py-2 border-b border-amber-100">
-                    <div>
-                      <span class="font-bold text-slate-900">1x Loaded Cheddar Crinkle Fries</span>
-                      <p class="text-[11px] text-amber-800 font-semibold">+ Crispy Bacon Crunch</p>
-                    </div>
-                    <span class="font-black text-slate-900">₱89</span>
-                  </div>
-
-                  <div class="flex items-center justify-between text-xs py-2">
-                    <div>
-                      <span class="font-bold text-slate-900">2x Calamansi Cold Brew Iced Tea</span>
-                      <p class="text-[11px] text-amber-800 font-semibold">16oz Chilled</p>
-                    </div>
-                    <span class="font-black text-slate-900">₱98</span>
-                  </div>
+                <div id="active-order-items-list" class="space-y-3 pt-1">
+                  <!-- Populated by user.js -->
                 </div>
 
                 <!-- PRICING SUMMARY -->
                 <div class="pt-3 border-t border-amber-200 space-y-1.5 text-xs text-slate-600">
                   <div class="flex justify-between">
                     <span>Subtotal</span>
-                    <span class="text-slate-900 font-bold">₱417</span>
+                    <span id="active-order-subtotal" class="text-slate-900 font-bold">₱417</span>
                   </div>
                   <div class="flex justify-between">
-                    <span>Store Delivery Fee</span>
-                    <span class="text-slate-900 font-bold">₱49</span>
+                    <span>Fulfillment Fee</span>
+                    <span id="active-order-fee" class="text-slate-900 font-bold">₱49</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Payment Method</span>
+                    <span id="active-order-payment" class="text-amber-800 font-bold">Cash on Delivery</span>
                   </div>
                   <div class="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-amber-200">
-                    <span>Total Amount Paid</span>
-                    <span class="text-amber-600 font-display text-base">₱466</span>
+                    <span>Total Amount</span>
+                    <span id="active-order-total" class="text-amber-600 font-display text-lg">₱466</span>
                   </div>
                 </div>
 
-                <div class="pt-2">
+                <div class="pt-2 flex gap-2">
                   <button 
-                    onclick="showToast('Customer electronic receipt downloaded! 📄')" 
-                    class="w-full py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300 transition-colors"
+                    onclick="openReceiptModal()" 
+                    class="flex-1 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300 transition-colors"
                   >
-                    View Official Customer Receipt
+                    📄 View Official Receipt
                   </button>
                 </div>
               </div>
 
               <!-- DELIVERY ADDRESS BOX -->
               <div class="bg-white border border-amber-200 rounded-3xl p-5 shadow-clean space-y-2">
-                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Delivering To</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Fulfillment Destination</span>
                 <p id="active-order-address" class="text-xs text-slate-800 font-bold">
                   Unit 402, Sta. Mesa, Manila (Near V. Mapa LRT2)
                 </p>
-                <p class="text-[11px] text-slate-500 font-medium">
-                  Note: Please leave with condo lobby concierge if gate is closed.
+                <p id="active-order-notes" class="text-[11px] text-slate-500 font-medium">
+                  Note: Extra hot cheese sauce on the side.
                 </p>
               </div>
 
@@ -448,58 +650,19 @@
           </div>
         </div>
 
-        <!-- ==================== 2. PAST ORDER HISTORY SECTION ==================== -->
+        <!-- ==================== TAB 3: PAST ORDER HISTORY SECTION ==================== -->
         <div id="view-order-history" class="hidden space-y-4">
-          <div class="space-y-4">
-            
-            <!-- Past Order Item 1 -->
-            <div class="bg-white border border-amber-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-clean">
-              <div class="space-y-1.5">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-black text-amber-700 font-mono">#BDC-77401</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">Delivered</span>
-                  <span class="text-xs text-slate-400">• Oct 28, 2026</span>
-                </div>
-                <h5 class="text-sm font-bold text-slate-900">2x BDC Bacsilog (Signature), 1x Mozzarella Stretch Corndog</h5>
-                <p class="text-xs text-slate-500 font-medium">Fulfilled by: Big Daddy's Cup V. Mapa Sta. Mesa • Total: <span class="font-bold text-slate-900">₱309</span></p>
-              </div>
-              <button onclick="reorderCustomerOrder('BDC Bacsilog (Signature)')" class="px-4 py-2.5 rounded-xl btn-cheese text-xs font-black shrink-0 shadow-sm">
-                Re-Order Meal
-              </button>
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-display text-xl font-black text-slate-900">Your Past Orders</h3>
+              <p class="text-xs text-slate-500 font-medium">Re-order your favorite cheesy meals with one click.</p>
             </div>
-
-            <!-- Past Order Item 2 -->
-            <div class="bg-white border border-amber-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-clean">
-              <div class="space-y-1.5">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-black text-amber-700 font-mono">#BDC-61902</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">Delivered</span>
-                  <span class="text-xs text-slate-400">• Oct 14, 2026</span>
-                </div>
-                <h5 class="text-sm font-bold text-slate-900">1x BDC Tapsilog Prime, 1x Loaded Cheddar Fries</h5>
-                <p class="text-xs text-slate-500 font-medium">Fulfilled by: Big Daddy's Cup V. Mapa Sta. Mesa • Total: <span class="font-bold text-slate-900">₱218</span></p>
-              </div>
-              <button onclick="reorderCustomerOrder('BDC Tapsilog Prime')" class="px-4 py-2.5 rounded-xl btn-cheese text-xs font-black shrink-0 shadow-sm">
-                Re-Order Meal
-              </button>
-            </div>
-
-            <!-- Past Order Item 3 -->
-            <div class="bg-white border border-amber-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-clean">
-              <div class="space-y-1.5">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-black text-amber-700 font-mono">#BDC-55811</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">Delivered</span>
-                  <span class="text-xs text-slate-400">• Sep 30, 2026</span>
-                </div>
-                <h5 class="text-sm font-bold text-slate-900">1x BDC Cheesy Sisig Rice Bowl, 2x Calamansi Cold Brew Tea</h5>
-                <p class="text-xs text-slate-500 font-medium">Fulfilled by: Big Daddy's Cup V. Mapa Sta. Mesa • Total: <span class="font-bold text-slate-900">₱233</span></p>
-              </div>
-              <button onclick="reorderCustomerOrder('BDC Cheesy Sisig Rice Bowl')" class="px-4 py-2.5 rounded-xl btn-cheese text-xs font-black shrink-0 shadow-sm">
-                Re-Order Meal
-              </button>
-            </div>
-
+            <button onclick="switchPortalTab('store')" class="px-4 py-2 rounded-xl btn-cheese text-xs font-black shadow-sm">
+              + Browse Full Menu
+            </button>
+          </div>
+          <div id="order-history-list" class="space-y-4">
+            <!-- Populated by user.js -->
           </div>
         </div>
 
@@ -508,87 +671,51 @@
     </div>
   </main>
 
-  <!-- QUICK STORE ORDER MODAL (For Ordering from this Store) -->
-  <div id="quick-order-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-    <div class="bg-white border-2 border-amber-300 rounded-3xl max-w-lg w-full p-6 sm:p-7 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+  <!-- ==================== PRODUCT CUSTOMIZATION MODAL ==================== -->
+  <div id="customize-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div id="customize-modal-content" class="bg-white border-2 border-amber-300 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl">
+      <!-- Populated by user.js -->
+    </div>
+  </div>
+
+  <!-- ==================== OFFICIAL RECEIPT MODAL ==================== -->
+  <div id="receipt-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white border-2 border-amber-300 rounded-3xl max-w-md w-full p-6 sm:p-7 space-y-4 shadow-2xl relative">
       <button 
-        onclick="closeQuickOrderModal()" 
-        class="absolute top-5 right-5 w-8 h-8 rounded-full bg-amber-50 text-slate-500 hover:text-slate-900 border border-amber-200 flex items-center justify-center font-bold text-sm"
+        onclick="closeReceiptModal()" 
+        class="absolute top-4 right-4 w-8 h-8 rounded-full bg-amber-50 text-slate-600 hover:text-slate-900 border border-amber-200 flex items-center justify-center font-bold text-sm"
       >
         ✕
       </button>
-
-      <div>
-        <span class="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300">
-          Customer Ordering
-        </span>
-        <h3 class="font-display text-xl font-black text-slate-900 mt-1">
-          Select Meal to Order
-        </h3>
-        <p id="modal-store-name" class="text-xs text-slate-600 font-medium">
-          Order will be cooked fresh at Big Daddy's Cup
-        </p>
+      <div class="text-center border-b border-dashed border-amber-300 pb-4">
+        <div class="text-2xl mb-1">🧀</div>
+        <h3 class="font-display text-xl font-black text-slate-900">BIG DADDY'S CUP</h3>
+        <p id="receipt-store-name" class="text-xs text-slate-500 font-bold">V. Mapa Sta. Mesa Branch</p>
+        <p id="receipt-order-id" class="text-xs font-mono font-black text-amber-700 mt-1">#BDC-89241</p>
       </div>
-
-      <!-- Dish Selection List -->
-      <div class="space-y-2.5 pt-2 text-xs">
-        <div class="p-3.5 rounded-2xl border border-amber-200 hover:border-amber-400 bg-white hover:bg-amber-50/50 flex items-center justify-between gap-3 transition-colors">
-          <div>
-            <span class="font-bold text-slate-900 text-sm block">BDC Bacsilog (Signature)</span>
-            <span class="text-slate-500 font-medium">Honey bacon strips + garlic rice + runny egg + cheddar flood</span>
-          </div>
-          <button onclick="placeDirectStoreOrder('BDC Bacsilog (Signature)', 115)" class="px-3.5 py-2 rounded-xl btn-cheese font-black shrink-0 shadow-sm">
-            Order • ₱115
-          </button>
-        </div>
-
-        <div class="p-3.5 rounded-2xl border border-amber-200 hover:border-amber-400 bg-white hover:bg-amber-50/50 flex items-center justify-between gap-3 transition-colors">
-          <div>
-            <span class="font-bold text-slate-900 text-sm block">BDC Tapsilog Prime</span>
-            <span class="text-slate-500 font-medium">Tender house-marinated beef tapa + runny egg + garlic rice</span>
-          </div>
-          <button onclick="placeDirectStoreOrder('BDC Tapsilog Prime', 129)" class="px-3.5 py-2 rounded-xl btn-cheese font-black shrink-0 shadow-sm">
-            Order • ₱129
-          </button>
-        </div>
-
-        <div class="p-3.5 rounded-2xl border border-amber-200 hover:border-amber-400 bg-white hover:bg-amber-50/50 flex items-center justify-between gap-3 transition-colors">
-          <div>
-            <span class="font-bold text-slate-900 text-sm block">BDC Katsulog Supreme</span>
-            <span class="text-slate-500 font-medium">Crispy panko pork cutlet + garlic rice + runny egg + double sauce</span>
-          </div>
-          <button onclick="placeDirectStoreOrder('BDC Katsulog Supreme', 139)" class="px-3.5 py-2 rounded-xl btn-cheese font-black shrink-0 shadow-sm">
-            Order • ₱139
-          </button>
-        </div>
-
-        <div class="p-3.5 rounded-2xl border border-amber-200 hover:border-amber-400 bg-white hover:bg-amber-50/50 flex items-center justify-between gap-3 transition-colors">
-          <div>
-            <span class="font-bold text-slate-900 text-sm block">BDC Cheesy Sisig Bowl</span>
-            <span class="text-slate-500 font-medium">Crispy minced pork sisig with chili, egg & molten cheese</span>
-          </div>
-          <button onclick="placeDirectStoreOrder('BDC Cheesy Sisig Bowl', 135)" class="px-3.5 py-2 rounded-xl btn-cheese font-black shrink-0 shadow-sm">
-            Order • ₱135
-          </button>
-        </div>
-
-        <div class="p-3.5 rounded-2xl border border-amber-200 hover:border-amber-400 bg-white hover:bg-amber-50/50 flex items-center justify-between gap-3 transition-colors">
-          <div>
-            <span class="font-bold text-slate-900 text-sm block">Loaded Cheddar Crinkle Fries</span>
-            <span class="text-slate-500 font-medium">Crinkle-cut fries + warm cheese sauce + bacon bits</span>
-          </div>
-          <button onclick="placeDirectStoreOrder('Loaded Cheddar Crinkle Fries', 89)" class="px-3.5 py-2 rounded-xl btn-cheese font-black shrink-0 shadow-sm">
-            Order • ₱89
-          </button>
-        </div>
+      <div id="receipt-items-body" class="space-y-2 text-xs max-h-56 overflow-y-auto py-1">
+        <!-- Populated by user.js -->
       </div>
+      <div class="border-t border-dashed border-amber-300 pt-3 space-y-1 text-xs">
+        <div class="flex justify-between font-bold text-slate-900 text-sm">
+          <span>Total Paid / Due</span>
+          <span id="receipt-total" class="text-amber-600">₱466</span>
+        </div>
+        <p id="receipt-payment" class="text-[11px] text-slate-500">Payment: Cash on Delivery</p>
+      </div>
+      <button 
+        onclick="window.print()" 
+        class="w-full py-2.5 rounded-xl btn-cheese font-black text-xs uppercase tracking-wider shadow-sm"
+      >
+        🖨️ Print / Save Official Receipt
+      </button>
     </div>
   </div>
 
   <!-- TOAST CONTAINER -->
   <div id="toast-container"></div>
 
-  <!-- Customer Portal Script -->
+  <!-- Customer Portal & Store Script -->
   <script src="user.js"></script>
 </body>
 </html>

@@ -189,62 +189,80 @@ const BRANCHES = [
   {
     id: 'tac-paterno',
     city: 'Tacloban City',
+    tagline: 'Flagship Store & Dine-In',
     name: 'BDC Flagship - Paterno St.',
     address: 'Paterno Street, Downtown, Tacloban City, Leyte',
     hours: '7:00 AM – 11:00 PM (Daily)',
     phone: '+63 (053) 832-4412',
     delivery: ['Foodpanda', 'GrabFood', 'Store Direct'],
-    status: 'Open Now'
+    status: 'Open Now',
+    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
+    mapUrl: 'https://maps.google.com/?q=Paterno+Street+Downtown+Tacloban+City+Leyte'
   },
   {
     id: 'tac-sagkahan',
     city: 'Tacloban City',
+    tagline: 'Astrodome Hub & Takeout',
     name: 'BDC Sagkahan Branch',
     address: 'Sagkahan District, near Astrodome, Tacloban City',
     hours: '8:00 AM – 10:00 PM',
     phone: '+63 917 554 9921',
     delivery: ['Foodpanda', 'Direct Takeout'],
-    status: 'Open Now'
+    status: 'Open Now',
+    image: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=800&q=80',
+    mapUrl: 'https://maps.google.com/?q=Sagkahan+District+Tacloban+City'
   },
   {
     id: 'mnl-sta-mesa',
     city: 'Metro Manila',
+    tagline: '24/7 U-Belt Chill Hub',
     name: 'BDC V. Mapa Sta. Mesa (University Belt)',
     address: 'V. Mapa Blvd cor Ramon Magsaysay Blvd, Sta. Mesa, Manila',
     hours: '24 Hours (7 Days)',
     phone: '+63 (02) 8711-2099',
     delivery: ['Foodpanda', 'GrabFood', 'Lalamove Pickup'],
-    status: 'Open 24/7'
+    status: 'Open 24/7',
+    image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80',
+    mapUrl: 'https://maps.google.com/?q=V.+Mapa+Blvd+Sta.+Mesa+Manila'
   },
   {
     id: 'mnl-morayta',
     city: 'Metro Manila',
+    tagline: 'Near FEU Main Gate',
     name: 'BDC FEU / Morayta U-Belt',
     address: 'Nicanor Reyes St., Sampaloc, Manila',
     hours: '6:30 AM – 12:00 MN',
     phone: '+63 928 411 9302',
     delivery: ['Foodpanda', 'GrabFood'],
-    status: 'Open Now'
+    status: 'Open Now',
+    image: 'https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=800&q=80',
+    mapUrl: 'https://maps.google.com/?q=Nicanor+Reyes+St+Sampaloc+Manila'
   },
   {
     id: 'cebu-talamban',
     city: 'Cebu',
+    tagline: 'USC Talamban Food Strip',
     name: 'BDC Talamban University Corner',
     address: 'Gov. M. Cuenco Ave, Talamban, Cebu City',
     hours: '8:00 AM – 11:00 PM',
     phone: '+63 (032) 410-8819',
     delivery: ['Foodpanda', 'Maxim', 'Store Pickup'],
-    status: 'Open Now'
+    status: 'Open Now',
+    image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
+    mapUrl: 'https://maps.google.com/?q=Gov+M+Cuenco+Ave+Talamban+Cebu+City'
   },
   {
     id: 'bulacan-malolos',
     city: 'Bulacan',
+    tagline: 'MacArthur Highway Pitstop',
     name: 'BDC Malolos Crossing',
     address: 'MacArthur Highway, Malolos City, Bulacan',
     hours: '8:00 AM – 10:00 PM',
     phone: '+63 915 220 1888',
     delivery: ['Foodpanda', 'GrabFood'],
-    status: 'Open Now'
+    status: 'Open Now',
+    image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=80',
+    mapUrl: 'https://maps.google.com/?q=MacArthur+Highway+Malolos+Bulacan'
   }
 ];
 
@@ -383,20 +401,20 @@ function handleLoginSubmit(e) {
 
 function quickDemoLogin() {
   const user = {
-    name: 'Customer Account',
-    phone: '',
-    email: 'customer@bigdaddyscup.ph',
+    name: 'Juan Dela Cruz (Demo)',
+    phone: '+63 917 882 1045',
+    email: 'demo@bigdaddyscup.ph',
     role: 'Customer',
-    defaultAddress: 'Sta. Mesa, Manila'
+    defaultAddress: 'Unit 402, Sta. Mesa, Manila (Near V. Mapa LRT2)'
   };
 
   localStorage.setItem('bdc_user', JSON.stringify(user));
   closeLoginModal();
-  showToast('Logged in as Customer! Opening customer orders... 🛵');
+  showToast('Logged in as Juan Dela Cruz (Demo Account)! Opening Customer Store... 🧀');
 
   setTimeout(() => {
     window.location.href = 'user.html';
-  }, 400);
+  }, 350);
 }
 
 function logoutUser() {
@@ -488,10 +506,36 @@ function renderMenu() {
               </span>
             `).join('')}
           </div>
+
+          <button 
+            type="button"
+            onclick="handleLandingOrderClick('${item.id}')"
+            class="w-full mt-4 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
+          >
+            <span>🧀 Order Now</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </button>
         </div>
       </div>
     </div>
   `).join('');
+}
+
+function handleLandingOrderClick(itemId) {
+  const item = MENU_ITEMS.find(i => i.id === itemId);
+  if (item) {
+    localStorage.setItem('bdc_pending_item', item.id);
+  }
+  const storedUser = localStorage.getItem('bdc_user');
+  if (!storedUser) {
+    showToast(`Please log in first to order ${item ? item.name : 'from our menu'}! 🔒🧀`);
+    openLoginModal();
+  } else {
+    showToast(`Opening Customer Store to order ${item ? item.name : ''}... 🧀`);
+    setTimeout(() => {
+      window.location.href = 'user.html';
+    }, 300);
+  }
 }
 
 function filterCategory(cat, element) {
@@ -1067,60 +1111,154 @@ function renderBranches() {
   if (!grid) return;
 
   grid.innerHTML = BRANCHES.map(b => `
-    <div class="bg-white border border-amber-200/80 hover:border-amber-400 rounded-2xl p-5 transition-all group shadow-clean hover:shadow-cheese">
-      <div class="flex items-start justify-between mb-3">
-        <div>
-          <span class="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300">
+    <div data-city="${b.city}" class="w-[320px] sm:w-[360px] md:w-[380px] shrink-0 snap-start bg-white border border-amber-200/90 hover:border-amber-400 rounded-2xl overflow-hidden shadow-clean hover:shadow-cheese transition-all duration-300 flex flex-col group">
+      <!-- Store Image & Floating Badges -->
+      <div class="relative h-48 w-full overflow-hidden bg-amber-100">
+        <img 
+          src="${b.image}" 
+          alt="${b.name}" 
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80'"
+        >
+        <!-- Overlay Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/30 pointer-events-none"></div>
+
+        <!-- City Badge (Top Left) -->
+        <div class="absolute top-3 left-3">
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-md flex items-center gap-1">
+            <svg class="w-3 h-3 text-slate-950" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
             ${b.city}
           </span>
-          <h4 class="font-display font-black text-base text-slate-900 mt-1 group-hover:text-amber-700 transition-colors">
+        </div>
+
+        <!-- Open Status Badge (Top Right) -->
+        <div class="absolute top-3 right-3">
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 backdrop-blur-sm text-emerald-800 shadow-md flex items-center gap-1.5 border border-emerald-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            ${b.status}
+          </span>
+        </div>
+
+        <!-- Tagline & Google Maps Button (Bottom Over Image) -->
+        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2">
+          <span class="text-[11px] font-bold text-amber-200 bg-slate-900/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-amber-400/30 truncate">
+            ${b.tagline}
+          </span>
+          <a 
+            href="${b.mapUrl}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="shrink-0 text-[10px] font-black text-slate-950 bg-amber-400 hover:bg-amber-300 active:scale-95 px-2.5 py-1 rounded-lg flex items-center gap-1 shadow transition-all"
+            title="Open in Google Maps"
+          >
+            <span>Map</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Store Details & Action Buttons -->
+      <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+        <div>
+          <h4 class="font-display font-black text-base sm:text-lg text-slate-900 group-hover:text-amber-700 transition-colors leading-snug">
             ${b.name}
           </h4>
+          <p class="text-xs text-slate-600 mt-2 flex items-start gap-2 font-medium">
+            <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+            <span class="line-clamp-2">${b.address}</span>
+          </p>
         </div>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold flex items-center gap-1.5 shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-          ${b.status}
-        </span>
-      </div>
 
-      <p class="text-xs text-slate-600 mb-3 flex items-start gap-2 font-medium">
-        <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-        <span>${b.address}</span>
-      </p>
-
-      <div class="text-xs text-slate-600 mb-3 space-y-1 font-medium">
-        <div class="flex items-center gap-2">
-          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <span>${b.hours}</span>
+        <!-- Hours & Contact Info -->
+        <div class="text-xs text-slate-600 space-y-1.5 font-medium bg-amber-50/70 p-3 rounded-xl border border-amber-200/80">
+          <div class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>${b.hours}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            <a href="tel:${b.phone.replace(/[^0-9+]/g, '')}" class="font-bold text-slate-800 hover:text-amber-700 transition-colors">${b.phone}</a>
+          </div>
         </div>
-        <div class="flex items-center gap-2">
-          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-          <span class="font-bold text-slate-800">${b.phone}</span>
-        </div>
-      </div>
 
-      <div class="flex flex-wrap gap-1.5 pt-3 border-t border-amber-100">
-        <span class="text-[10px] text-slate-500 self-center mr-1 font-semibold">Delivery:</span>
-        ${b.delivery.map(d => `
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200">
-            ${d}
-          </span>
-        `).join('')}
+        <div>
+          <!-- Delivery Partners -->
+          <div class="flex flex-wrap items-center gap-1.5 pt-3 border-t border-amber-100">
+            <span class="text-[10px] text-slate-500 font-semibold mr-1">Delivery:</span>
+            ${b.delivery.map(d => `
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100/70 text-amber-900 border border-amber-200">
+                ${d}
+              </span>
+            `).join('')}
+          </div>
+
+          <!-- Order from this branch button -->
+          <button 
+            type="button"
+            onclick="selectBranchForOrdering('${b.id}')"
+            class="w-full mt-3.5 py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm transition-all"
+          >
+            <span>🧀 Order From This Branch</span>
+          </button>
+        </div>
       </div>
     </div>
   `).join('');
 }
 
-function filterBranchCity(city) {
+function scrollBranchRow(direction) {
+  const grid = document.getElementById('branches-grid');
+  if (!grid) return;
+  const cardWidth = 380;
+  grid.scrollBy({
+    left: direction * cardWidth,
+    behavior: 'smooth'
+  });
+}
+
+function filterBranchCity(city, btn) {
+  if (btn) {
+    const buttons = document.querySelectorAll('#branch-filters button');
+    buttons.forEach(b => {
+      b.className = 'px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50 font-bold transition-all';
+    });
+    btn.className = 'px-3.5 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-black shadow-sm transition-all';
+  }
+
   const cards = document.querySelectorAll('#branches-grid > div');
   cards.forEach(card => {
     if (city === 'all') {
-      card.style.display = 'block';
+      card.style.display = 'flex';
     } else {
-      const match = card.innerText.toLowerCase().includes(city.toLowerCase());
-      card.style.display = match ? 'block' : 'none';
+      const cardCity = card.getAttribute('data-city') || '';
+      const match = cardCity.toLowerCase().includes(city.toLowerCase()) || 
+                    card.innerText.toLowerCase().includes(city.toLowerCase());
+      card.style.display = match ? 'flex' : 'none';
     }
   });
+
+  const grid = document.getElementById('branches-grid');
+  if (grid) {
+    grid.scrollTo({ left: 0, behavior: 'smooth' });
+  }
+}
+
+function selectBranchForOrdering(branchId) {
+  const branch = BRANCHES.find(b => b.id === branchId);
+  if (!branch) return;
+  localStorage.setItem('bdc_selected_store', branchId);
+  
+  const storedUser = localStorage.getItem('bdc_user');
+  if (!storedUser) {
+    showToast(`Selected ${branch.name}! Please log in first before you can order 🔒🧀`);
+    openLoginModal();
+  } else {
+    showToast(`Selected ${branch.name}! Opening Customer Store... 🧀`);
+    setTimeout(() => {
+      window.location.href = 'user.html';
+    }, 300);
+  }
 }
 
 // --- FRANCHISE ROI CALCULATOR ---

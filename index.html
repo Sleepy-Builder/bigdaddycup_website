@@ -92,7 +92,13 @@
           </button>
 
           <!-- Logged In State: Direct Link to user.html -->
-          <div id="nav-user-pill" class="hidden items-center gap-1.5">
+          <div id="nav-user-pill" class="hidden items-center gap-2">
+            <a 
+              href="user.html" 
+              class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all shadow-sm"
+            >
+              <span>🧀 Store &amp; My Orders</span>
+            </a>
             <a 
               href="user.html" 
               class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-100/90 border border-amber-300 text-xs font-bold text-slate-900 hover:bg-amber-200 transition-colors shadow-sm"
@@ -492,40 +498,82 @@
     <section id="branches" class="py-20 relative bg-[#FDFBF7] border-t border-amber-200/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
           <div>
-            <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3.5 py-1.5 rounded-full border border-amber-300">
-              Nationwide Presence
-            </span>
-            <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 mt-2">
+            <div class="inline-flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-widest text-amber-800 bg-amber-100 px-3.5 py-1.5 rounded-full border border-amber-300">
+                Nationwide Presence
+              </span>
+              <span class="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full hidden sm:inline-flex items-center gap-1">
+                🧀 6 Store Locations &amp; Food Hubs
+              </span>
+            </div>
+            <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 mt-2.5">
               FIND A BRANCH NEAR YOU
             </h2>
-            <p class="text-slate-600 text-sm mt-1 font-medium">
-              From our roots in Leyte & Cebu to Metro Manila's University Belt.
+            <p class="text-slate-600 text-sm mt-1 font-medium max-w-xl">
+              From our roots in Leyte &amp; Cebu to Metro Manila's University Belt. Explore our stores and order for dine-in, takeout, or delivery.
             </p>
           </div>
 
-          <div class="flex flex-wrap gap-2 text-xs">
-            <button onclick="filterBranchCity('all')" class="px-3.5 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-black shadow-sm">
-              All Branches
-            </button>
-            <button onclick="filterBranchCity('Tacloban')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
-              Tacloban City
-            </button>
-            <button onclick="filterBranchCity('Manila')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
-              Metro Manila
-            </button>
-            <button onclick="filterBranchCity('Cebu')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
-              Cebu
-            </button>
-            <button onclick="filterBranchCity('Bulacan')" class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-slate-700 hover:text-slate-900 font-bold">
-              Bulacan
-            </button>
+          <!-- Controls: City filters and navigation arrows in one clean bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div id="branch-filters" class="flex flex-wrap items-center gap-2 text-xs">
+              <button onclick="filterBranchCity('all', this)" class="px-3.5 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-black shadow-sm transition-all">
+                All Branches
+              </button>
+              <button onclick="filterBranchCity('Tacloban', this)" class="px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50 font-bold transition-all">
+                Tacloban City
+              </button>
+              <button onclick="filterBranchCity('Manila', this)" class="px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50 font-bold transition-all">
+                Metro Manila
+              </button>
+              <button onclick="filterBranchCity('Cebu', this)" class="px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50 font-bold transition-all">
+                Cebu
+              </button>
+              <button onclick="filterBranchCity('Bulacan', this)" class="px-3.5 py-1.5 rounded-xl bg-white border border-amber-200 text-slate-700 hover:border-amber-400 hover:bg-amber-50 font-bold transition-all">
+                Bulacan
+              </button>
+            </div>
+
+            <!-- Left / Right scroll navigation arrows -->
+            <div class="flex items-center gap-2 shrink-0">
+              <button 
+                onclick="scrollBranchRow(-1)" 
+                class="w-9 h-9 rounded-xl bg-white border border-amber-200 hover:border-amber-400 hover:bg-amber-50 text-slate-800 flex items-center justify-center shadow-sm active:scale-95 transition-all" 
+                title="Scroll Left"
+                aria-label="Previous Branch"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+              </button>
+              <button 
+                onclick="scrollBranchRow(1)" 
+                class="w-9 h-9 rounded-xl bg-white border border-amber-200 hover:border-amber-400 hover:bg-amber-50 text-slate-800 flex items-center justify-center shadow-sm active:scale-95 transition-all" 
+                title="Scroll Right"
+                aria-label="Next Branch"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
-        <div id="branches-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Populated by landing.js -->
+        <!-- Single Row Horizontal Carousel / Scroll Container -->
+        <div class="relative">
+          <div id="branches-grid" class="flex gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory branch-scroll-row">
+            <!-- Populated by landing.js -->
+          </div>
+          
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium pt-2 px-1">
+            <span class="flex items-center gap-1.5">
+              <span>👉</span>
+              <span class="hidden sm:inline">Swipe or use arrows to view all store locations</span>
+              <span class="sm:hidden">Swipe horizontally to explore all branches</span>
+            </span>
+            <a href="#menu" class="text-amber-700 hover:text-amber-800 font-bold underline underline-offset-4 flex items-center gap-1 transition-colors">
+              Explore Full BDC Menu 🧀 →
+            </a>
+          </div>
         </div>
 
       </div>
@@ -637,6 +685,24 @@
         <p class="text-xs text-slate-600 mt-1 font-medium tracking-wide">
           Log in to track your orders, claim Cheesy Rewards, and order with 1-click!
         </p>
+      </div>
+
+      <!-- INSTANT 1-CLICK DEMO ACCOUNT CALLOUT -->
+      <div class="bg-gradient-to-r from-amber-400/25 via-amber-300/35 to-amber-500/25 border-2 border-amber-400 rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center text-lg font-black shrink-0 shadow-sm">⚡</span>
+          <div>
+            <h4 class="text-xs font-black text-slate-950 leading-tight">Instant Demo Account</h4>
+            <p class="text-[10px] text-amber-900 font-bold">1-Click Sign In as Juan Dela Cruz</p>
+          </div>
+        </div>
+        <button 
+          type="button"
+          onclick="quickDemoLogin()" 
+          class="shrink-0 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 text-xs font-black uppercase tracking-wider shadow-sm transition-all"
+        >
+          Instant Login 🚀
+        </button>
       </div>
 
       <!-- Form Tabs -->

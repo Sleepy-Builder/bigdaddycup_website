@@ -106,6 +106,27 @@ p {
   background: #D97706;
 }
 
+/* Branch Locator Single-Row Horizontal Carousel Scrollbar */
+.branch-scroll-row {
+  scrollbar-width: thin;
+  scrollbar-color: #F59E0B #FEF3C7;
+  -webkit-overflow-scrolling: touch;
+}
+.branch-scroll-row::-webkit-scrollbar {
+  height: 6px;
+}
+.branch-scroll-row::-webkit-scrollbar-track {
+  background: #FEF3C7;
+  border-radius: 9999px;
+}
+.branch-scroll-row::-webkit-scrollbar-thumb {
+  background: #F59E0B;
+  border-radius: 9999px;
+}
+.branch-scroll-row::-webkit-scrollbar-thumb:hover {
+  background: #D97706;
+}
+
 /* Brand Gradient Text (Optimized for light background) */
 .text-gradient-cheese {
   background: linear-gradient(135deg, #B45309 0%, #D97706 40%, #F59E0B 100%);
